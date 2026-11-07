@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Kortelės">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="icon" href="icon.svg">
+<title>Kortelės</title>
+<link rel="stylesheet" href="style.css?v=5">
+</head>
+<body>
+<header>
+  <h1>Kortelės</h1>
+  <input id="search" type="search" placeholder="Ieškoti…" autocomplete="off">
+</header>
+
+<main id="list"></main>
+<p id="empty" hidden>Kortelių dar nėra. Spausk <b>+</b> ir pridėk pirmą.</p>
+
+<button id="add" aria-label="Pridėti kortelę">+</button>
+
+<!-- Kortelės peržiūra -->
+<dialog id="view">
+  <div class="view-card" id="viewCard">
+    <button class="close" id="viewClose" aria-label="Uždaryti">×</button>
+    <h2 id="viewName"></h2>
+    <div class="code-box"><canvas id="viewBarcode"></canvas><div id="viewQr"></div></div>
+    <div class="code-text" id="viewCode"></div>
+    <p class="notes" id="viewNotes"></p>
+    <div class="row">
+      <button id="viewEdit">Redaguoti</button>
+      <button id="viewDelete" class="danger">Ištrinti</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Pridėjimas / redagavimas -->
+<dialog id="edit">
+  <form id="form" method="dialog">
+    <h2 id="editTitle">Nauja kortelė</h2>
+    <button type="button" id="scan">📷 Nuskaityti iš nuotraukos / screenshot'o</button>
+    <input type="file" id="scanFile" accept="image/*" hidden>
+    <div id="scanMsg" class="notes"></div>
+    <label>Pavadinimas<input name="name" required maxlength="40" placeholder="pvz. Maxima"></label>
+    <label>Kodas<input name="code" required inputmode="text" autocomplete="off" placeholder="skaičiai iš kortelės"></label>
+    <label>Tipas
+      <select name="format">
+        <option value="auto">Automatiškai</option>
+        <option value="CODE128">Brūkšninis (Code 128)</option>
+        <option value="EAN13">EAN-13</option>
+        <option value="EAN8">EAN-8</option>
+        <option value="UPC">UPC-A</option>
+        <option value="CODE39">Code 39</option>
+        <option value="QR">QR kodas</option>
+      </select>
+    </label>
+    <label>Spalva<input name="color" type="color" value="#2563eb"></label>
+    <label>Pastabos<textarea name="notes" rows="2" maxlength="200" placeholder="nuolaida, galiojimas…"></textarea></label>
+    <div class="row">
+      <button type="button" id="editCancel">Atšaukti</button>
+      <button type="submit" class="primary">Išsaugoti</button>
+    </div>
+    <div class="row small">
+      <button type="button" id="export">Eksportuoti</button>
+      <button type="button" id="import">Importuoti</button>
+      <input type="file" id="importFile" accept="application/json" hidden>
+    </div>
+  </form>
+</dialog>
+
+<script src="lib/JsBarcode.all.min.js"></script>
+<script src="lib/qrcode.min.js"></script>
+<script src="lib/zxing.min.js"></script>
+<script src="app.js?v=5"></script>
+</body>
+</html>
