@@ -1,4 +1,4 @@
-const APP_VERSION = '6'; // rodoma formoje, kad matytųsi, ar užkrauta naujausia versija
+const APP_VERSION = '7'; // rodoma formoje, kad matytųsi, ar užkrauta naujausia versija
 const KEY = 'korteles.v1';
 const PALETTE = ['#2563eb', '#dc2626', '#15803d', '#7c3aed', '#c2410c', '#0f766e', '#be185d', '#374151'];
 const $ = (id) => document.getElementById(id);
@@ -306,7 +306,8 @@ async function ocrNumber(file) {
 }
 
 $('scan').onclick = () => $('scanFile').click();
-$('scanFile').onchange = async (e) => {
+$('scanCam').onclick = () => $('scanCamFile').click();
+async function onScanPicked(e) {
   const file = e.target.files[0];
   e.target.value = '';
   if (!file) return;
@@ -322,37 +323,9 @@ $('scanFile').onchange = async (e) => {
     applyScan({ code: num, format: 'auto' }, 'Perskaitytas numeris');
     msg.textContent += ' — patikrink, ar sutampa su kortele.';
   } catch (ex) { msg.textContent = `Nepavyko perskaityti paveikslėlio. [${ex?.message || ex}]`; }
-};
-
-// Nuskaitymas gyvai kamera (reikia https arba localhost)
-let camReader = null;
-function stopCamera() {
-  try { camReader?.reset(); } catch {}
-  camReader = null;
-  const v = $('camVideo');
-  v.srcObject?.getTracks().forEach((t) => t.stop());
-  v.srcObject = null;
 }
-$('scanCam').onclick = async () => {
-  if (!navigator.mediaDevices?.getUserMedia || !ZX) {
-    $('scanMsg').textContent = 'Kamerai reikia saugaus ryšio (https). Naudok „Iš nuotraukos“.';
-    return;
-  }
-  $('camMsg').textContent = 'Nukreipk kamerą į brūkšninį ar QR kodą.';
-  $('cam').showModal();
-  try {
-    camReader = new ZX.BrowserMultiFormatReader(new Map([[ZX.DecodeHintType.TRY_HARDER, true]]));
-    await camReader.decodeFromConstraints({ video: { facingMode: 'environment' } }, $('camVideo'), (result) => {
-      if (!result) return;
-      applyScan({ code: result.getText(), format: ZX_FMT[result.getBarcodeFormat()] || 'auto' }, 'Rasta');
-      $('cam').close();
-    });
-  } catch (ex) {
-    $('camMsg').textContent = `Kamera nepasiekiama. Leisk jos naudojimą naršyklėje. [${ex?.name || ex}]`;
-  }
-};
-$('camClose').onclick = () => $('cam').close();
-$('cam').addEventListener('close', stopCamera);
+$('scanFile').onchange = onScanPicked;
+$('scanCamFile').onchange = onScanPicked;
 
 // ---------- Paleidimas ----------
 window.addEventListener('error', (e) => { $('scanMsg').textContent = `Klaida: ${e.message}`; });

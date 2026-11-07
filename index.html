@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="icon.svg">
 <link rel="icon" href="icon.svg">
 <title>Kortelės</title>
-<link rel="stylesheet" href="style.css?v=6">
+<link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
 <header>
@@ -46,9 +46,10 @@
     <h2 id="editTitle">Nauja kortelė</h2>
     <div class="btn-row">
       <button type="button" class="btn" id="scan">🖼 Iš nuotraukos</button>
-      <button type="button" class="btn" id="scanCam">📷 Kamera</button>
+      <button type="button" class="btn" id="scanCam">📷 Fotografuoti</button>
     </div>
     <input type="file" id="scanFile" accept="image/*" hidden>
+    <input type="file" id="scanCamFile" accept="image/*" capture="environment" hidden>
     <p id="scanMsg" class="scan-msg" role="status" aria-live="polite"></p>
 
     <label class="field">Pavadinimas<input name="name" required maxlength="40" placeholder="pvz. Maxima"></label>
@@ -81,18 +82,10 @@
   </form>
 </dialog>
 
-<!-- Nuskaitymas kamera -->
-<dialog id="cam" aria-label="Nuskaitymas kamera">
-  <div class="sheet">
-    <video id="camVideo" class="camera" playsinline muted></video>
-    <p class="scan-msg" id="camMsg">Nukreipk kamerą į brūkšninį ar QR kodą.</p>
-    <button class="btn" id="camClose">Uždaryti</button>
-  </div>
-</dialog>
 
 <script src="lib/JsBarcode.all.min.js"></script>
 <script src="lib/qrcode.min.js"></script>
 <script src="lib/zxing.min.js"></script>
-<script src="app.js?v=6"></script>
+<script src="app.js?v=7"></script>
 </body>
 </html>

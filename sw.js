@@ -1,4 +1,4 @@
-const CACHE = 'korteles-v6';
+const CACHE = 'korteles-v7';
 const ASSETS = ['./', 'index.html', 'style.css', 'app.js', 'manifest.webmanifest', 'icon.svg',
   'lib/JsBarcode.all.min.js', 'lib/qrcode.min.js', 'lib/zxing.min.js'];
 

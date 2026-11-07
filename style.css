@@ -142,7 +142,6 @@ dialog[open] { animation: pop var(--dur) ease-out; }
 
 /* ---------- Scan UI ---------- */
 .scan-msg { margin: 0; color: var(--muted); font-size: 14px; min-height: 1.4em; }
-.camera { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; background: #000; border-radius: var(--radius-md); }
 
 /* ---------- Colour swatches ---------- */
 .swatches { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
