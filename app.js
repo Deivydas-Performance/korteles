@@ -1,4 +1,4 @@
-const APP_VERSION = '7'; // rodoma formoje, kad matytųsi, ar užkrauta naujausia versija
+const APP_VERSION = '8'; // rodoma formoje, kad matytųsi, ar užkrauta naujausia versija
 const KEY = 'korteles.v1';
 const PALETTE = ['#2563eb', '#dc2626', '#15803d', '#7c3aed', '#c2410c', '#0f766e', '#be185d', '#374151'];
 const $ = (id) => document.getElementById(id);
@@ -204,7 +204,7 @@ $('search').addEventListener('input', render);
 
 $('export').onclick = () => {
   const url = URL.createObjectURL(new Blob([JSON.stringify(cards, null, 2)], { type: 'application/json' }));
-  const a = Object.assign(document.createElement('a'), { href: url, download: 'korteles.json' });
+  const a = Object.assign(document.createElement('a'), { href: url, download: 'suvalkas.json' });
   a.click();
   URL.revokeObjectURL(url);
 };
