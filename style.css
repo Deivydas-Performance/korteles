@@ -45,6 +45,7 @@
 
 /* ---------- Base ---------- */
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { -webkit-text-size-adjust: 100%; touch-action: manipulation; overflow-x: hidden; }
 body {
   margin: 0; background: var(--bg); color: var(--fg);
   font: var(--text-md)/1.4 system-ui, -apple-system, sans-serif;
@@ -61,6 +62,7 @@ input, select, textarea {
   width: 100%; min-height: var(--tap); padding: var(--space-3);
   border-radius: var(--radius-sm); border: 1px solid var(--border);
   background: var(--surface); color: var(--fg); font: inherit;
+  font-size: var(--text-md); /* <16px priverstų iOS priartinti puslapį fokusuojant lauką */
   transition: border-color var(--dur);
 }
 input:focus-visible, select:focus-visible, textarea:focus-visible { border-color: var(--primary); outline-offset: 0; }

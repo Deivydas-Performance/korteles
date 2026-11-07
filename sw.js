@@ -1,4 +1,4 @@
-const CACHE = 'suvalkas-v8';
+const CACHE = 'suvalkas-v9';
 const ASSETS = ['./', 'index.html', 'style.css', 'app.js', 'manifest.webmanifest', 'icon.svg',
   'lib/JsBarcode.all.min.js', 'lib/qrcode.min.js', 'lib/zxing.min.js'];
 

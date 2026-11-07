@@ -1,4 +1,4 @@
-const APP_VERSION = '8'; // rodoma formoje, kad matytųsi, ar užkrauta naujausia versija
+const APP_VERSION = '9'; // rodoma formoje, kad matytųsi, ar užkrauta naujausia versija
 const KEY = 'korteles.v1';
 const PALETTE = ['#2563eb', '#dc2626', '#15803d', '#7c3aed', '#c2410c', '#0f766e', '#be185d', '#374151'];
 const $ = (id) => document.getElementById(id);
