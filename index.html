@@ -10,44 +10,50 @@
 <link rel="apple-touch-icon" href="icon.svg">
 <link rel="icon" href="icon.svg">
 <title>Kortelės</title>
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 <header>
   <h1>Kortelės</h1>
-  <input id="search" type="search" placeholder="Ieškoti…" autocomplete="off">
+  <input id="search" type="search" placeholder="Ieškoti…" autocomplete="off" aria-label="Ieškoti kortelių">
 </header>
 
-<main id="list"></main>
-<p id="empty" hidden>Kortelių dar nėra. Spausk <b>+</b> ir pridėk pirmą.</p>
+<main id="list" class="grid"></main>
+<p id="empty" class="empty" hidden>Kortelių dar nėra. Spausk <b>+</b> ir pridėk pirmą.</p>
 
-<button id="add" aria-label="Pridėti kortelę">+</button>
+<button id="add" class="fab" aria-label="Pridėti kortelę">+</button>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
 <!-- Kortelės peržiūra -->
-<dialog id="view">
-  <div class="view-card" id="viewCard">
-    <button class="close" id="viewClose" aria-label="Uždaryti">×</button>
+<dialog id="view" aria-labelledby="viewName">
+  <div class="sheet sheet--view" id="viewCard">
+    <button class="btn dialog__close" id="viewClose" aria-label="Uždaryti">×</button>
     <h2 id="viewName"></h2>
-    <div class="code-box"><canvas id="viewBarcode"></canvas><div id="viewQr"></div></div>
+    <div class="code-box"><canvas id="viewBarcode" role="img"></canvas><div id="viewQr"></div></div>
     <div class="code-text" id="viewCode"></div>
+    <p class="hint" id="viewHint">Jei nenuskaito, padidink ekrano ryškumą.</p>
     <p class="notes" id="viewNotes"></p>
-    <div class="row">
-      <button id="viewEdit">Redaguoti</button>
-      <button id="viewDelete" class="danger">Ištrinti</button>
+    <div class="btn-row">
+      <button class="btn" id="viewEdit">Redaguoti</button>
+      <button class="btn btn--danger" id="viewDelete">Ištrinti</button>
     </div>
   </div>
 </dialog>
 
 <!-- Pridėjimas / redagavimas -->
-<dialog id="edit">
-  <form id="form" method="dialog">
+<dialog id="edit" aria-labelledby="editTitle">
+  <form id="form" class="sheet" method="dialog">
     <h2 id="editTitle">Nauja kortelė</h2>
-    <button type="button" id="scan">📷 Nuskaityti iš nuotraukos / screenshot'o</button>
+    <div class="btn-row">
+      <button type="button" class="btn" id="scan">🖼 Iš nuotraukos</button>
+      <button type="button" class="btn" id="scanCam">📷 Kamera</button>
+    </div>
     <input type="file" id="scanFile" accept="image/*" hidden>
-    <div id="scanMsg" class="notes"></div>
-    <label>Pavadinimas<input name="name" required maxlength="40" placeholder="pvz. Maxima"></label>
-    <label>Kodas<input name="code" required inputmode="text" autocomplete="off" placeholder="skaičiai iš kortelės"></label>
-    <label>Tipas
+    <p id="scanMsg" class="scan-msg" role="status" aria-live="polite"></p>
+
+    <label class="field">Pavadinimas<input name="name" required maxlength="40" placeholder="pvz. Maxima"></label>
+    <label class="field">Kodas<input name="code" required inputmode="text" autocomplete="off" placeholder="skaičiai iš kortelės"></label>
+    <label class="field">Tipas
       <select name="format">
         <option value="auto">Automatiškai</option>
         <option value="CODE128">Brūkšninis (Code 128)</option>
@@ -58,23 +64,35 @@
         <option value="QR">QR kodas</option>
       </select>
     </label>
-    <label>Spalva<input name="color" type="color" value="#2563eb"></label>
-    <label>Pastabos<textarea name="notes" rows="2" maxlength="200" placeholder="nuolaida, galiojimas…"></textarea></label>
-    <div class="row">
-      <button type="button" id="editCancel">Atšaukti</button>
-      <button type="submit" class="primary">Išsaugoti</button>
+    <div class="field" role="group" aria-label="Spalva">Spalva
+      <div class="swatches" id="swatches"></div>
+      <input type="hidden" name="color" value="#2563eb">
     </div>
-    <div class="row small">
-      <button type="button" id="export">Eksportuoti</button>
-      <button type="button" id="import">Importuoti</button>
+    <label class="field">Pastabos<textarea name="notes" rows="2" maxlength="200" placeholder="nuolaida, galiojimas…"></textarea></label>
+    <div class="btn-row">
+      <button type="button" class="btn" id="editCancel">Atšaukti</button>
+      <button type="submit" class="btn btn--primary">Išsaugoti</button>
+    </div>
+    <div class="btn-row">
+      <button type="button" class="btn btn--sm" id="export">Eksportuoti</button>
+      <button type="button" class="btn btn--sm" id="import">Importuoti</button>
       <input type="file" id="importFile" accept="application/json" hidden>
     </div>
   </form>
 </dialog>
 
+<!-- Nuskaitymas kamera -->
+<dialog id="cam" aria-label="Nuskaitymas kamera">
+  <div class="sheet">
+    <video id="camVideo" class="camera" playsinline muted></video>
+    <p class="scan-msg" id="camMsg">Nukreipk kamerą į brūkšninį ar QR kodą.</p>
+    <button class="btn" id="camClose">Uždaryti</button>
+  </div>
+</dialog>
+
 <script src="lib/JsBarcode.all.min.js"></script>
 <script src="lib/qrcode.min.js"></script>
 <script src="lib/zxing.min.js"></script>
-<script src="app.js?v=5"></script>
+<script src="app.js?v=6"></script>
 </body>
 </html>
