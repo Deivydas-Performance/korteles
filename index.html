@@ -3,23 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#111827">
+<meta name="theme-color" content="#07051a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Suvalkas">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" href="icon.svg">
 <title>Suvalkas</title>
-<link rel="stylesheet" href="style.css?v=9">
+<link rel="stylesheet" href="style.css?v=10">
 </head>
 <body>
 <header>
-  <h1>Suvalkas</h1>
+  <div class="brand">
+    <span class="logo-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <h1 class="wordmark" aria-label="Suvalkas"><span style="--i:0" aria-hidden="true">S</span><span style="--i:1" aria-hidden="true">u</span><span style="--i:2" aria-hidden="true">v</span><span style="--i:3" aria-hidden="true">a</span><span style="--i:4" aria-hidden="true">l</span><span style="--i:5" aria-hidden="true">k</span><span style="--i:6" aria-hidden="true">a</span><span style="--i:7" aria-hidden="true">s</span></h1>
+  </div>
+  <span class="badge"><i class="pulse"></i>nuolaidų kortelės</span>
   <input id="search" type="search" placeholder="Ieškoti…" autocomplete="off" aria-label="Ieškoti kortelių">
 </header>
 
 <main id="list" class="grid"></main>
-<p id="empty" class="empty" hidden>Kortelių dar nėra. Spausk <b>+</b> ir pridėk pirmą.</p>
+<p id="empty" class="empty" hidden><span class="logo-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><br>Kortelių dar nėra. Spausk <b>+</b> ir pridėk pirmą.</p>
 
 <button id="add" class="fab" aria-label="Pridėti kortelę">+</button>
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
@@ -67,7 +71,7 @@
     </label>
     <div class="field" role="group" aria-label="Spalva">Spalva
       <div class="swatches" id="swatches"></div>
-      <input type="hidden" name="color" value="#2563eb">
+      <input type="hidden" name="color" value="#7c3aed">
     </div>
     <label class="field">Pastabos<textarea name="notes" rows="2" maxlength="200" placeholder="nuolaida, galiojimas…"></textarea></label>
     <div class="btn-row">
@@ -86,6 +90,6 @@
 <script src="lib/JsBarcode.all.min.js"></script>
 <script src="lib/qrcode.min.js"></script>
 <script src="lib/zxing.min.js"></script>
-<script src="app.js?v=9"></script>
+<script src="app.js?v=10"></script>
 </body>
 </html>

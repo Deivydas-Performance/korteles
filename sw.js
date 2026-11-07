@@ -1,5 +1,5 @@
-const CACHE = 'suvalkas-v9';
-const ASSETS = ['./', 'index.html', 'style.css', 'app.js', 'manifest.webmanifest', 'icon.svg',
+const CACHE = 'suvalkas-v10';
+const ASSETS = ['./', 'index.html', 'style.css', 'app.js', 'manifest.webmanifest', 'icon.svg', 'icon-512.png', 'apple-touch-icon.png',
   'lib/JsBarcode.all.min.js', 'lib/qrcode.min.js', 'lib/zxing.min.js'];
 
 self.addEventListener('install', (e) => {

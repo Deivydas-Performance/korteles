@@ -1,6 +1,7 @@
-const APP_VERSION = '9'; // rodoma formoje, kad matytųsi, ar užkrauta naujausia versija
+const APP_VERSION = '10'; // rodoma formoje, kad matytųsi, ar užkrauta naujausia versija
 const KEY = 'korteles.v1';
-const PALETTE = ['#2563eb', '#dc2626', '#15803d', '#7c3aed', '#c2410c', '#0f766e', '#be185d', '#374151'];
+const PALETTE = ['#7c3aed', '#c8f135', '#f43f5e', '#fb923c', '#22d3ee', '#2563eb', '#16a34a', '#ec4899'];
+let firstRender = true; // įėjimo animacija tik pirmą kartą, ne kiekvieną paieškos paspaudimą
 const $ = (id) => document.getElementById(id);
 
 let cards = [];
@@ -43,10 +44,11 @@ function render() {
   const list = cards
     .filter((c) => c.name.toLowerCase().includes(q))
     .sort((a, b) => (b.lastUsed || 0) - (a.lastUsed || 0) || a.name.localeCompare(b.name, 'lt'));
-  $('list').replaceChildren(...list.map((c) => {
+  $('list').replaceChildren(...list.map((c, i) => {
     const b = document.createElement('button');
-    b.className = 'tile';
-    b.style.background = c.color;
+    b.className = firstRender ? 'tile tile--enter' : 'tile';
+    b.style.setProperty('--c', c.color);
+    b.style.setProperty('--i', Math.min(i, 10));
     b.style.color = textOn(c.color);
     const name = Object.assign(document.createElement('span'), { className: 'tile__name', textContent: c.name });
     const sub = Object.assign(document.createElement('span'), { className: 'tile__sub', textContent: c.notes || c.code });
@@ -55,6 +57,7 @@ function render() {
     return b;
   }));
   $('empty').hidden = cards.length > 0;
+  firstRender = false;
 }
 
 // ---------- Kodo piešimas ----------
